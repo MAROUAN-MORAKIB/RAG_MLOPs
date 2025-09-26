@@ -1,24 +1,32 @@
-FROM python:3.11-slim
-
+# ===============================
+# Base image (core dependencies only)
+# ===============================
+FROM python:3.11-slim AS base
 WORKDIR /app
 
-# Install system dependencies (needed for FAISS + psycopg2)
-RUN apt-get update && apt-get install -y \
-    build-essential \
-    libpq-dev \
-    && rm -rf /var/lib/apt/lists/*
+# Install system dependencies
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    build-essential libpq-dev curl \
+ && rm -rf /var/lib/apt/lists/*
 
-# Copy requirements first (for caching)
+# Install core Python dependencies
 COPY requirements.txt .
-
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy app code (no .env here for security!)
+# Copy application code (no .env for security)
 COPY app/ app/
-# COPY configs/ configs/
-COPY data/ data/
+COPY ops/ ops/
 
-EXPOSE 8000
+# ===============================
+# Full ML image (adds heavy ML libs)
+# ===============================
+FROM base AS ml
 
-# Start API
+# Install ML dependencies (torch, transformers, faiss, etc.)
+COPY requirements-ml.txt .
+RUN pip install --no-cache-dir -r requirements-ml.txt
+
+# ===============================
+# Default run command
+# ===============================
 CMD ["uvicorn", "app.api:app", "--host", "0.0.0.0", "--port", "8000"]
