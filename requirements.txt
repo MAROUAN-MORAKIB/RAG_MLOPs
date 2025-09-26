@@ -1,14 +1,21 @@
-openai
-uvicorn
+# Core web + API
 fastapi
-langchain
-python-dotenv
-langchain-community
-pypdf
-faiss-cpu
-streamlit
-sentence-transformers
-psycopg2-binary
-prometheus_client
+uvicorn
+pydantic
 sqlalchemy
-alembic
+psycopg2-binary
+python-dotenv
+prometheus_client
+
+# LangChain + lightweight tools
+langchain
+langchain-community
+langchain-core
+langchain-text-splitters
+huggingface-hub
+pypdf
+
+# Utils
+requests
+httpx
+PyYAML
