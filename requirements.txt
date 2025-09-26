@@ -1,0 +1,14 @@
+openai
+uvicorn
+fastapi
+langchain
+python-dotenv
+langchain-community
+pypdf
+faiss-cpu
+streamlit
+sentence-transformers
+psycopg2-binary
+prometheus_client
+sqlalchemy
+alembic
