@@ -25,6 +25,10 @@ jobs:
           pip install pytest
 
       - name: Run tests
+        env:               # 👈 inject secrets into test environment
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+          HF_API_KEY: ${{ secrets.HF_API_KEY }}
+          DB_URL: ${{ secrets.DB_URL }}
         run: pytest -q || echo "No tests yet"
 
       - name: Log in to DockerHub
