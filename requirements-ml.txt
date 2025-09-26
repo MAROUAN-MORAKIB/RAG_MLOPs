@@ -1,0 +1,8 @@
+# Core AI/ML libs
+torch
+transformers
+sentence-transformers
+faiss-cpu
+scikit-learn
+pandas
+numpy
