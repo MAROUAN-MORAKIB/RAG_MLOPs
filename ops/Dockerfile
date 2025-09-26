@@ -15,7 +15,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 # Copy app code (no .env here for security!)
 COPY app/ app/
-COPY configs/ configs/
+# COPY configs/ configs/
 COPY data/ data/
 
 EXPOSE 8000
